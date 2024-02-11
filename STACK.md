@@ -1,5 +1,7 @@
 ## Stack Array:-
 
+*LIFO MANNER*
+
 ```javascript
 class Stack{
     constructor(){
@@ -142,3 +144,9 @@ stk.display();
 **In a basic implementation of a stack using a linked list, the tail pointer is not necessary. This is because we typically only need to access and manipulate the top of the stack, which is represented by the top pointer.**
 
 **So, while the tail pointer is not strictly necessary for a basic stack implementation, its inclusion depends on the specific requirements and functionalities of the stack you are implementing.**
+
+## Stack Usage
+1. **Browser History Tracking**
+2.  **Undo operation when Typing**
+3.  **Expression Conversions(*infix to postfix*)**
+4.  **Call Stack in JS**
