@@ -35,6 +35,16 @@ console.log("3: ",bubbleSort([100]))
 ```
 
 # Insertion Sort
+
+Algo:-
+
+1. **We need to assume as 2 arrays, right as unsorted and left as sorted**
+2. **So the first ele is considered as sorted , So start loop from Second ele, and that ele is we need to put in the sorted array**
+3. **Compare the ele we need to insert with the sorted array, is the sorted array's ele is greater till decrementing to 0:- Shift ele to the right**
+4. **When the condition fails add it to the right side of the failed position**
+
+
+
 ```javascript
 function insertionSort(arr){
     for(let i=1;i<arr.length;i++){
