@@ -1,5 +1,10 @@
 # BubbleSort
 
+Algo:
+1. **for loop checks the max ele in the entire array and put in the end of the array**
+2. **after exiting the for loop swapped value is true so it check the for loop again from the begining and find the next max ele and put in the second end of the array**
+3. **Continue the process**
+
 ```javascript
 function bubbleSort(arr){
     if(arr.length===0){
