@@ -62,7 +62,7 @@ forDequeue:-
 4. ** After dequeuing the element, the front index needs to be incremented to point to the next element in the queue. This step ensures that the front index always reflects the index of the front element in the queue after dequeuing an element.**
 
 ```javascript
-//-enqueue --->rear|||||||||front<----dequeue-
+//<--Front(dequeue)-- |||||| <---Rear(enqueue)---
 
 class Queue{
     constructor(){
@@ -111,3 +111,73 @@ console.log("Is Q empty?: ",q.isEmpty());
 1. **Printers** : when we try to print multiple documents.
 2. **CPU task Scheduling**
 3. **CallBack queue in JavaScript runtime**
+
+
+## LinkedList Queue:-
+```javascript
+//<--Front(dequeue)---|||||| <---Rear(enqueue)---
+
+class Node{
+    constructor(data){
+        this.data = data;
+        this.next = null;
+    }
+}
+class Queue{
+    constructor(){
+        this.rear=null;// Pointer to the rear of the queue
+        this.front = null;// // Pointer to the front of the queue
+        this.size = 0;
+        
+    }
+    
+    enqueue(data){
+        let newNode = new Node(data);
+        if(this.isEmpty()){
+            this.front = newNode;
+        }else{
+            this.rear.next = newNode;
+        }
+        this.rear = newNode;
+        this.size++;
+        
+    }
+    dequeue(){
+        if(this.isEmpty()){
+            console.log("Q is empty;")
+        }
+        let dequeuedItem = this.front.data;
+        this.front = this.front.next;
+        if(!this.front){
+            this.rear = null;
+        }
+        this.size--;
+        return dequeuedItem;
+    }
+      isEmpty() {
+        return this.size === 0;
+    }
+    getSize(){
+        return this.size;
+    }
+    display(){
+        if(this.isEmpty()){
+            console.log("Queue is Empty");
+            return;
+        }
+        let curr = this.front;
+        while(curr){
+            console.log(curr.data);
+            curr = curr.next;
+        }
+    }
+    
+  
+}
+  let q = new Queue();
+  q.enqueue(1);
+  q.enqueue(2);
+  q.enqueue(3);
+  q.dequeue();
+  q.display();
+```
