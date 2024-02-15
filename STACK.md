@@ -38,6 +38,15 @@ class Stack{
             this.stack = [];
             this.top = -1;
         }
+ printStack(){
+             if(this.top ===-1){
+            console.log("Empty")
+        }else{
+            for(let i=this.top ; i>=0 ; i--){
+                console.log(this.stack[i]);
+            }
+        }
+    }
 
 }
 
