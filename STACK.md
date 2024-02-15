@@ -150,3 +150,67 @@ stk.display();
 2.  **Undo operation when Typing**
 3.  **Expression Conversions(*infix to postfix*)**
 4.  **Call Stack in JS**
+
+
+
+# LeetCode
+## Valid Parantesis:-
+
+Example 1:
+
+Input: s = "()"
+Output: true
+Example 2:
+
+Input: s = "()[]{}"
+Output: true
+Example 3:
+
+Input: s = "(]"
+Output: false
+
+Certainly! Here's a simple algorithm to determine whether a string containing only parentheses, square brackets, and curly braces is valid:
+
+1. **Initialize an empty stack** to store opening parentheses, square brackets, and curly braces encountered while traversing the string.
+
+2. **Iterate through the string** character by character:
+   - For each character `c` in the string:
+     - If `c` is an opening parenthesis, square bracket, or curly brace (i.e., `'('`, `'['`, or `'{'`), push its corresponding closing parenthesis, square bracket, or curly brace onto the stack.
+     - If `c` is a closing parenthesis, square bracket, or curly brace (i.e., `')'`, `']'`, or `'}'`):
+       - Pop the top element from the stack and compare it with `c`.
+         - If they are not the same, return `false` as the string is invalid.
+         - If they are the same, continue iterating through the string.
+
+3. **After iterating through the entire string**, check if the stack is empty:
+   - If the stack is empty, return `true` as all opening parentheses, square brackets, and curly braces have been matched with their corresponding closing characters.
+   - If the stack is not empty, return `false` as there are unmatched opening characters in the string.
+
+Here's the JavaScript implementation of the algorithm:
+
+```javascript
+var isValid = function(s) {
+    const stack = [];
+    
+    for (let i = 0; i < s.length; i++) {
+        let c = s.charAt(i);
+        switch (c) {
+            case '(': stack.push(')');
+                break;
+            case '[': stack.push(']');
+                break;
+            case '{': stack.push('}');
+                break;
+            default:
+                if (c !== stack.pop()) {
+                    return false;
+                }
+        }
+    }
+    
+    return stack.length === 0;
+};
+```
+
+This algorithm has a time complexity of O(n), where n is the length of the input string `s`. It efficiently validates whether the string contains valid pairs of parentheses, square brackets, and curly braces.
+
+
