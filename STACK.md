@@ -223,3 +223,54 @@ var isValid = function(s) {
 This algorithm has a time complexity of O(n), where n is the length of the input string `s`. It efficiently validates whether the string contains valid pairs of parentheses, square brackets, and curly braces.
 
 
+
+
+## 151. Reverse Words in a String
+Given an input string s, reverse the order of the words.
+
+A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+
+Return a string of the words in reverse order concatenated by a single space.
+
+*Note* that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+Example 1:
+
+Input: s = "the sky is blue"
+Output: "blue is sky the"
+Example 2:
+
+Input: s = "  hello world  "
+Output: "world hello"
+Explanation: Your reversed string should not contain leading or trailing spaces.
+Example 3:
+
+Input: s = "a good   example"
+Output: "example good a"
+Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
+
+### Algo:-
+1. **split the stings on the basis of whitespace**
+2. **push all vals to stack**
+3. **Pop all the values in the stack to a new string variable**
+4. **return that varible with `trim()` method which removes whitespace from both sides of a string.**
+
+
+```javascript
+ function reverseWords(s){
+     const splitS = s.split(" ");
+     const stack =[];
+     for(let val of splitS){
+         stack.push(val);
+     }
+     
+     let finalS="";
+     while(stack.length){
+         const curr = stack.pop();
+         if(curr){
+             finalS += " "+curr;       
+             }
+     }
+     return finalS.trim();
+ }
+```
