@@ -131,6 +131,106 @@ console.log("After deletion:");
 table.remove("age");
 table.display();
 ```
+## Hash Table Collisions
+### insted of storing one value at the given index we store an array of key value pairs
+
+Lets Check an alogorith to avoid collitions:-
+
+**In Set Method**
+
+- **make the `this.table[index]` to a variable `bucket`.**
+- **If there is no value stored in that index `!bucket`, create a array with key value pair `[[key,vale]]` and push it.**
+- **If a value is already exist, check that the array contain sub array with same key using `find` by checking item key`item[0]` with the passed in key `key`.     If Such an item is present(key is equal) we the Update its value.**
+- if not we push the key - value pair.
+
+**In get Method**
+
+- **make the `this.table[index]` to a variable `bucket`.**
+- **if the bucket exist,we check that the array exist with the same key  by checking item key`item[0]` with the passed in key `key`.        If Such an item is present(key is equal) we `return` the value of the item `sameItemKey[1]` (key is syored at index 0 and value is stored at index 1, so [1])**
+- else bucket not exist we return `undefined` indicating the key does not exist!
+
+**In remove Method**
+
+- **if the bucket exist,we check that the array exist with the same key  by checking item key`item[0]` with the passed in key `key`.         If Such an item is present(key is equal) we use `array.splice()` to remove the item from the array!**
+- **`bucket.splice(bucket.indexOf(sameKeyItem), 1);` The splice method takes two parameters: the index at which to start removing elements and the number of elements to remove. In this case, splice is called with the index of the found item (bucket.indexOf(sameKeyItem)) and 1 as the number of elements to remove (since we want to remove only one item).**
+
+
+*Code:-*
+```javascript
+class HashTable{
+    constructor(size){
+        this.table = new Array(size);
+        this.size = size;
+    }
+    hash(key){
+        let total = 0;
+        for(let i =0 ; i<key.length;i++){
+            total+=key.charCodeAt(i);
+        }
+        return total % this.size
+    }
+    set(key,value){
+        const index = this.hash(key);
+        // this.table[index] = value;
+        const bucket = this.table[index];
+        if(!bucket){
+            this.table[index] =[[key,value]];
+        }else{
+            const sameKeyItem = bucket.find(item=>item[0] === key)
+            if(sameKeyItem){
+                sameKeyItem[1] = value;//update
+            }else {
+                bucket.push([key,value]);
+            }
+        }
+    }
+    get(key){
+        const index = this.hash(key);
+        // return this.table[index];
+        const bucket = this.table[index];
+        if(bucket){
+            const sameKeyItem = bucket.find(item=>item[0] === key)
+            if(sameKeyItem){
+                return sameKeyItem[1];//key is stored in index0 and value is stored at index 1.
+            }else{
+                return undefined;
+            }
+        }
+    }
+    
+    remove(key){
+        const index = this.hash(key);
+        const bucket = this.table[index];
+        if(bucket){
+            const sameKeyItem = bucket.find(item=>item[0]  ===  key)
+            if(sameKeyItem){
+                bucket.splice(bucket.indexOf(sameKeyItem),1);
+            }
+        }
+    }
+     display(){
+        for(let i=0 ; i<this.table.length ; i++){
+            if(this.table[i]!== undefined){
+                console.log(i,this.table[i]);
+            }
+        }
+    }
+}
+const table = new HashTable(50);
+table.set("name","Yadhu");
+table.set("age",22);
+table.display();
+
+console.log(table.get("name"));
+table.set("Sname","Thaju");
+table.set("name","Kishore");
+table.remove("name")
+table.display();
+```
+
+### Time complexity of collitions in Hash Table
+**In all the above Methods we used `array.find` which loops over the elements in the array-> its time complexity O(n), However in Hash tables the collitions are very minimal and it can be reduced to a Great extend by having better hashing functions, So that we generally consider the average case time complexity insted of worst case when it comes to hash table. So the average case time complexity is constant O(n), i.e the hash tables are choosen mostly when solving problems!**
+
 ## Leet Code on Hash Table:-
 
 ### 3005. Count Elements With Maximum Frequency
