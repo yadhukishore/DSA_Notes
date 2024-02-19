@@ -194,30 +194,34 @@ Certainly! Here's a simple algorithm to determine whether a string containing on
    - If the stack is empty, return `true` as all opening parentheses, square brackets, and curly braces have been matched with their corresponding closing characters.
    - If the stack is not empty, return `false` as there are unmatched opening characters in the string.
 
+*simply:-*
+
+(Each if statement checks if the current character c is an opening bracket ((, [, or {), and if so, it pushes the corresponding closing bracket onto the stack. Otherwise, if c is a closing bracket, it compares it with the top of the stack to see if they match. If they don't match, it returns false. Finally, after iterating through all characters in the string, it checks if the stack is empty to ensure all opening brackets have been matched with closing brackets. If the stack is empty, it returns true, indicating a valid sequence of brackets.)
+
 Here's the JavaScript implementation of the algorithm:
 
 ```javascript
-var isValid = function(s) {
-    const stack = [];
+function validParantesis(s){
+const stack = [];
     
     for (let i = 0; i < s.length; i++) {
         let c = s.charAt(i);
-        switch (c) {
-            case '(': stack.push(')');
-                break;
-            case '[': stack.push(']');
-                break;
-            case '{': stack.push('}');
-                break;
-            default:
-                if (c !== stack.pop()) {
-                    return false;
-                }
+        if (c === '(') {
+            stack.push(')');
+        } else if (c === '[') {
+            stack.push(']');
+        } else if (c === '{') {
+            stack.push('}');
+        } else {
+            if (c !== stack.pop()) {
+                return false;
+            }
         }
     }
     
     return stack.length === 0;
 };
+console.log(validParantesis("(())"))
 ```
 
 This algorithm has a time complexity of O(n), where n is the length of the input string `s`. It efficiently validates whether the string contains valid pairs of parentheses, square brackets, and curly braces.
@@ -274,3 +278,44 @@ Explanation: You need to reduce multiple spaces between two words to a single sp
      return finalS.trim();
  }
 ```
+
+## Next Greater Element: Find the next greater element for every element in an array. This problem can be solved using a stack to keep track of elements and their indices.
+
+To solve the Next Greater Element (NGE) problem using a stack in JavaScript, you can follow these steps:
+
+1. Initialize an empty stack and an array `nextGreater` of the same length as the input array to store the NGE for each element.
+2. Iterate through the input array from right to left.
+3. For each element, while the stack is not empty and the top element of the stack is less than or equal to the current element, pop the stack.
+4. If the stack is empty after the above step, it means there is no greater element to the right of the current element, so set `nextGreater[i]` to `-1`.
+5. If the stack is not empty, the top element of the stack is the next greater element to the right of the current element, so set `nextGreater[i]` to the top element of the stack.
+6. Push the current element onto the stack.
+7. After iterating through the input array, the `nextGreater` array will contain the NGE for each element.
+
+Here's the JavaScript code implementing the above algorithm:
+
+```javascript
+function nextGreaterElement(arr) {
+    let stack = [];
+    let nextGreater = new Array(arr.length).fill(-1);
+    
+    for (let i = arr.length -  1; i >=  0; i--) {
+        while (stack.length >  0 && stack[stack.length -  1] <= arr[i]) {
+            stack.pop();
+        }
+        
+        if (stack.length ===  0) {
+            nextGreater[i] = -1;
+        } else {
+            nextGreater[i] = stack[stack.length -  1];
+        }
+        
+        stack.push(arr[i]);
+    }
+    
+    return nextGreater;
+}
+```
+
+This function uses a stack to keep track of the elements that have been processed but do not yet have a next greater element. When it encounters an element that is greater than the top of the stack, it pops elements from the stack and assigns the current element as the next greater element to them.
+
+The time complexity of this solution is O(n), where n is the length of the array, because each element is pushed and popped from the stack exactly once. The space complexity is O(n) for the stack and the `nextGreater` array.
