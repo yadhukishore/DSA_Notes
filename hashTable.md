@@ -78,6 +78,7 @@ these need to be stored for fast look up. **if i specify a key as 'in' i should 
    - Prints out the index and the corresponding key-value pair if it exists (i.e., the value is not `undefined`).
 
 This algorithm outlines the basic functionality of the provided hash table implementation, including setting key-value pairs, retrieving values by keys, removing key-value pairs, and displaying the contents of the hash table.
+### Checkout:-  https://youtube.com/playlist?list=PLdPTfo6Ung1D9uRZXHSCfFdadAKMHaCNQ&si=p8DSn2w9OTPTDlO9
 
 ```javascript
 class HashTable{
@@ -94,15 +95,33 @@ class HashTable{
     }
     set(key,value){
         const index =this.hash(key);
-        this.table[index]=value;
+        if(!this.table[index]){
+        this.table[index]=[];
+        }
+        this.table[index].push([key,value]);
     }
     get(key){
     const index = this.hash(key);
-    if(!this.table[index]){
-        console.log("Cant get!");
-    }else{
-        return this.table[index];
+    if(this.table[index]){
+        for(let i =0 ; i<this.table[index].length; i++){
+            if(this.table[index][i][0] === key){
+                return this.table[index][i][1];
+            }
+        }
     }
+    return undefined;
+    }
+    //show all the keys
+    key(){
+        let allKeys = [];
+        for(let i=0 ; i<this.table.length ; i++){
+            if(this.table[i]){
+            for(let j=0;j<this.table[i].length;j++){
+                allKeys  .push(  this.table[i][j][0] )
+                }
+            }
+        }
+        return allKeys;
     }
     remove(key){
         const index = this.hash(key);
@@ -125,8 +144,11 @@ class HashTable{
 const table = new HashTable(50);
 table.set("Name","Yadhu");
 table.set("age",22);
+console.log(table.get("age"));
+console.log(table.get("Blah"))
 table.display()
-console.log(table.get("Name"))
+console.log(table.get("Name"));
+console.log("Keys:  ",table.key())
 console.log("After deletion:");
 table.remove("age");
 table.display();
