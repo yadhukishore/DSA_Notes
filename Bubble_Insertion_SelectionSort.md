@@ -33,6 +33,21 @@ console.log("1: ",bubbleSort([2,3,66,11,55,37,9]))
 console.log("2: ",bubbleSort([]))
 console.log("3: ",bubbleSort([100]))
 ```
+## timeComplexity of Bubble Sort
+The time complexity of Bubble Sort varies depending on the scenario:
+
+- **Best Case**: O(N)
+  - This occurs when the array is already sorted. There are no swaps needed, and the algorithm only needs to make N-1 comparisons to confirm the array is sorted [0][1][2].
+
+- **Average Case**: O(N^2)
+  - The number of comparisons is constant in Bubble Sort. Regardless of the arrangement of elements, the number of comparisons is the same for each element, leading to O(N^2) comparisons [0][1][2].
+
+- **Worst Case**: O(N^2)
+  - This happens when the array is sorted in reverse order. The algorithm will have to make the maximum number of comparisons and swaps, which is N(N-1)/2 for both, resulting in O(N^2) time complexity [0][1][2].
+
+The reason for the O(N^2) complexity in the worst and average cases is that Bubble Sort compares each pair of adjacent elements and swaps them if they are in the wrong order. This process is repeated for each element, leading to a quadratic number of operations in the worst-case scenario where the array is sorted in reverse order. In the average case, the number of operations is also quadratic due to the constant number of comparisons made for each element.
+
+The space complexity of Bubble Sort is O(1), which means it uses a constant amount of additional space. This is because Bubble Sort is an in-place sorting algorithm, and it only uses a single additional memory space for temporary storage during swapping [0][1][2].
 
 # Insertion Sort
 
@@ -112,6 +127,23 @@ let arr = [5, 2, 4, 6, 1, 3];
 console.log("Original array:", arr);
 console.log("Sorted array:", insertionSort(arr));
 ```
+## Insertion sort Time complexity:-
+
+The time complexity of Insertion Sort is as follows:
+
+- **Best Case**: O(N)
+  - This occurs when the array is already sorted. In this case, the algorithm only needs to make one comparison per element, leading to a linear number of operations [0][4].
+
+- **Average Case**: O(N^2)
+  - The average case is also quadratic. This is because, on average, each insertion must traverse half the currently sorted list while making one comparison per step. The list grows by one each time, and the number of traversals increases quadratically [3][4].
+
+- **Worst Case**: O(N^2)
+  - The worst-case scenario is when the array is sorted in reverse order. In this case, every iteration of the inner loop will scan and shift the entire sorted subsection of the array before inserting the next element, leading to a quadratic number of operations [0][3][4].
+
+The reason for the O(N^2) complexity in the worst and average cases is that Insertion Sort compares each element with all the elements before it to find the correct position for insertion. In the worst case, where the array is sorted in reverse order, each element must be compared with all the previously sorted elements, resulting in a quadratic number of comparisons and shifts. In the average case, the number of comparisons is also quadratic due to the nature of the algorithm's operation [3][4].
+
+The space complexity of Insertion Sort is O(1), which means it uses a constant amount of additional space. This is because Insertion Sort is an in-place sorting algorithm, and it only uses a single additional memory space for temporary storage during shifting of elements [0][2].
+
 # Selection Sort
 ### Algorithm:-
 
@@ -145,3 +177,20 @@ console.log("1:",selectionSort([11,12,8,70,4,18]))
 console.log("2:",selectionSort([]))
 console.log("3:",selectionSort([11,4]))
 ```
+
+## time complexity of selection Sort!
+
+The time complexity of Selection Sort is as follows:
+
+- **Best Case**: O(N^2)
+  - The best-case scenario for Selection Sort is when the array is already sorted. However, even in this case, the algorithm still performs a full scan of the array to verify that it is sorted, which results in O(N^2) time complexity [0][1][2][3].
+
+- **Average Case**: O(N^2)
+  - The average case for Selection Sort is when the array elements are in a random order. This is because, regardless of the initial arrangement, the algorithm will always perform the same number of comparisons and swaps, resulting in a quadratic time complexity [0][2][3].
+
+- **Worst Case**: O(N^2)
+  - The worst-case scenario occurs when the array is sorted in reverse order. Even in this case, the algorithm must perform all the comparisons and swaps, leading to a quadratic time complexity [0][2][3].
+
+The reason for the O(N^2) complexity in all cases is due to the nature of the Selection Sort algorithm. It consists of two nested loops: the outer loop iterates over each element in the array, and the inner loop finds the minimum element from the unsorted subarray. The inner loop performs N comparisons for the first element, N-1 for the second, and so on, until  1 for the last element. This results in a total of N(N-1)/2 comparisons, which simplifies to O(N^2) [0][2][3].
+
+The space complexity of Selection Sort is O(1), which means it uses a constant amount of additional space. This is because Selection Sort is an in-place sorting algorithm and does not require any extra space other than a temporary variable for swapping [0][2][3].
