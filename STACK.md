@@ -363,3 +363,48 @@ q.display();
 **time complexity for push method is O(1),Pushing one value at a time!**
 
 **But for Pop method it takes the time according to the values So O(n)  *Space also similar***
+
+## Making a limited sized Queue
+
+### i made the size as 3 when more than 3 values are arrived the older values will be removed
+
+
+```javascript
+class MyQueue{
+    constructor(){
+        this.input=[];
+        this.output=[];
+    }
+    push(x){
+        if(this.input.length>=3){
+            this.input.shift();// Remove the oldest element
+        }
+        this.input.push(x);
+    }
+    pop(){
+        this.peek();
+        return this.output.pop();
+    }
+    peek(){
+        if(this.output.length===0){
+            while(this.input.length>0){
+            this.output.push(this.input.pop())
+        }
+        }
+        return this.output[this.output.length-1];
+    }
+     display() {
+        const elements = [...this.output, ...this.input.reverse()];
+        console.log("Current queue elements:", elements.join(", "));
+    }
+}
+
+const q=new MyQueue();
+
+q.push(10);
+q.push(20);
+q.push(30);
+q.push(40);// Adding new element, oldest element (10) should be removed
+
+q.display();
+```
