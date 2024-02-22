@@ -319,3 +319,47 @@ function nextGreaterElement(arr) {
 This function uses a stack to keep track of the elements that have been processed but do not yet have a next greater element. When it encounters an element that is greater than the top of the stack, it pops elements from the stack and assigns the current element as the next greater element to them.
 
 The time complexity of this solution is O(n), where n is the length of the array, because each element is pushed and popped from the stack exactly once. The space complexity is O(n) for the stack and the `nextGreater` array.
+# Implement Queue using Stacks
+
+```javascript
+class MyQueue{
+    constructor(){
+        this.input=[];
+        this.output=[];
+    }
+    push(x){
+        this.input.push(x);
+    }
+    pop(){
+        this.peek();
+        return this.output.pop();
+    }
+    peek(){
+        if(this.output.length===0){
+            while(this.input.length>0){
+            this.output.push(this.input.pop())
+        }
+        }
+        return this.output[this.output.length-1];
+    }
+     display() {
+        const elements = [...this.output, ...this.input.reverse()];
+        console.log("Current queue elements:", elements.join(", "));
+    }
+}
+
+const q=new MyQueue();
+
+q.push(10);
+q.push(20);
+q.push(30);
+
+q.display();
+
+```
+
+### TimeComplexity
+
+**time complexity for push method is O(1),Pushing one value at a time!**
+
+**But for Pop method it takes the time according to the values So O(n)  *Space also similar***
