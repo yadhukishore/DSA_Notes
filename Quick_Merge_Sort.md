@@ -60,23 +60,15 @@ Here's a breakdown of how recursion is used in the `quickSort` function:
 
 Recursion is used here to break down the sorting problem into smaller subproblems, solve each subproblem independently, and then combine the solutions to obtain the final sorted array. This divide-and-conquer approach is a common pattern in recursive algorithms, and it's not limited to backtracking scenarios.
 ### Complexity
-Sure, let's break it down in simpler terms:
+The time complexity of quicksort varies depending on the case:
 
-1. **Best-case scenario:** 
-   - Imagine you have a stack of cards you want to sort. Quick sort works best when each time you divide your stack into two roughly equal parts. Think of it like splitting a deck of cards in half.
-   - If you keep dividing the stack in half until each part contains only one card (or is nearly equal in size), and then you start merging them back together, it won't take too long. This is because each step of dividing and merging takes \(O(n)\) time, and you only need to do about \(\log n\) steps. 
-   - So, in total, it takes about \(O(n \log n)\) time, which is pretty fast.
+- **Best Case**: The best case occurs when the pivot element is always the median of the array, leading to a balanced partition at each step. This results in a time complexity of O(N log N). The reason for this efficiency is that the partitioning step divides the array into two nearly equal halves, which then leads to a logarithmic number of levels in the recursion tree. Each level of the tree represents a partition operation, and the cost of each level is linear in the size of the partition, leading to a total time complexity of O(N log N) [0][2].
 
-2. **Worst-case scenario:** 
-   - However, if you're unlucky and every time you try to split your stack, you end up with a really lopsided split, like one half is just one card and the other half is almost all of the cards. It's like trying to split a deck where all the big cards are on one side and all the small cards are on the other.
-   - If this keeps happening, and you keep splitting and merging in this unbalanced way, it's going to take a long time. Each step of splitting and merging still takes \(O(n)\) time, but now you have to do a lot more steps because you're not making much progress dividing your stack in half each time. This is because you may need to do about \(n\) steps for each level of splitting.
-   - So, in total, it can take \(O(n^2)\) time, which is much slower than \(O(n \log n)\).
+- **Average Case**: In the average case, the array elements are in a "jumbled" order that is neither ascending nor descending. Despite the lack of a specific pattern, quicksort still performs well, maintaining a time complexity of O(N log N). This is because, on average, each partition step will split the array into two parts of roughly equal size, leading to a balanced recursion tree. The depth of this tree is logarithmic, and the work done at each level (partitioning) is linear, thus the overall time complexity remains O(N log N) [2].
 
-3. **Average-case scenario:** 
-   - In reality, when you're shuffling your cards, you're probably not always going to end up with perfectly balanced splits or extremely unbalanced splits. You might get some balanced, some unbalanced.
-   - On average, if you randomly shuffle your cards and do the splitting and merging, you'll end up with a mix of good splits and bad splits. So, it usually takes about \(O(n \log n)\) time, which is reasonably fast.
+- **Worst Case**: The worst case happens when the pivot element is either the smallest or the largest element in the array, leading to highly unbalanced partitions. In such a scenario, one partition contains N-1 elements, and the other contains  0, resulting in a time complexity of O(N^2). This occurs because the depth of the recursion tree becomes linear, and at each level, the partitioning step takes linear time. The total time complexity is the sum of the time taken at each level of the recursion tree, which sums up to N^2 [0][3].
 
-In summary, quick sort is usually fast (\(O(n \log n)\)), but it can be slow in some cases (\(O(n^2)\)) if the splits are consistently unbalanced. However, on average, it performs well because it often gets reasonably balanced splits.
+The space complexity of quicksort is O(log N) due to the space required for the call stack during the recursive partitioning. Each recursive call adds a level to the call stack, and in the worst case, this can go as deep as log N levels. However, it's important to note that this space is used for storing the recursive calls themselves, not the data being sorted [0].
 
 # Merge Sort
 
@@ -120,3 +112,14 @@ console.log(mergeSort([8,20,-2,-4,-6]))
  
 ```
 
+## time Complexity of merge sort
+
+The time complexity of merge sort is O(N log N) in all cases: best, average, and worst. This uniformity across all cases is due to the algorithm's divide-and-conquer approach, which involves dividing the array into two halves until it reaches subarrays of size  1, then merging these subarrays back together in a sorted order.
+
+- **Divide Phase**: The array is recursively divided into two halves until each subarray contains only one element. This division process takes log(N) time as it involves splitting the array log(N) times until it reaches the base case.
+- **Conquer Phase**: Once the array is divided, the merge process begins. Each merge operation takes linear time, O(N), because it involves comparing and merging elements from the two halves.
+- **Combine Phase**: The merge operations are performed in a way that ensures the entire array is sorted, which also takes log(N) time due to the depth of the recursive calls.
+
+Therefore, the overall time complexity is dominated by the merge operations, which take O(N) time each, and there are log(N) levels of recursion. Hence, the total time complexity is O(N log N) [0][1].
+
+The space complexity of merge sort is O(N), as it requires additional space to hold the temporary arrays used during the merge process [0][1]. This is because, unlike some other sorting algorithms like quicksort, merge sort does not sort the array in place. Instead, it uses extra space to create temporary arrays for merging.
