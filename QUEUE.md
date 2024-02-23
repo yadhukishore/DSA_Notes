@@ -389,4 +389,44 @@ console.log(stack.empty()); // Output: false
 
 ```
 
+## implement Stack using Single Queue
+
+```javascript
+
+class MyStack {
+    constructor() {
+        this.queue = [];
+       
+    }
+
+push(x){
+    this.queue.push(x);
+for(let i=0 ;i<this.queue.length-1;i++){
+    this.queue.push(this.queue.shift())
+}
+}
+pop(){
+    return this.queue.shift();
+}
+top(){
+    return this.queue[0];
+}
+   empty() {
+        // Check if queue1 is empty
+        return this.queue.length === 0;
+    }
+}
+
+// Example usage:
+const stack = new MyStack();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.push(4)
+console.log(stack.top()); // Output: 3
+console.log(stack.pop()); // Output: 3
+console.log(stack.empty()); // Output: false
+
+```
+
 
