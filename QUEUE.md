@@ -335,3 +335,58 @@ class Queue{
   q.dequeue();
   q.display();
 ```
+
+
+# Implement Stack using Queues 
+
+## using only two queues.
+
+```javascript
+class MyStack {
+    constructor() {
+        this.queue1 = [];
+        this.queue2 = [];
+    }
+
+    push(x) {
+        // Move all elements from queue1 to queue2
+        while (this.queue1.length > 0) {
+            this.queue2.push(this.queue1.shift());
+        }
+        // Add the new element to queue1
+        this.queue1.push(x);
+        // Move all elements from queue2 back to queue1
+        while (this.queue2.length > 0) {
+            this.queue1.push(this.queue2.shift());
+        }
+    }
+
+    pop() {
+        // Pop the top element from queue1
+        return this.queue1.shift();
+    }
+
+    top() {
+        // Return the top element from queue1
+        return this.queue1[0];
+    }
+
+    empty() {
+        // Check if queue1 is empty
+        return this.queue1.length === 0;
+    }
+}
+
+// Example usage:
+const stack = new MyStack();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+console.log(stack.top()); // Output: 3
+console.log(stack.pop()); // Output: 3
+console.log(stack.empty()); // Output: false
+
+
+```
+
+
