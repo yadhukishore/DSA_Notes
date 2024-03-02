@@ -355,3 +355,91 @@ const target = 226;
 const closestValue = bst.findClosest(target);
 console.log(`Closest value to ${target} is ${closestValue}`);
 ```
+
+## Validate its BST or not
+
+```javascript
+class Node {
+    constructor(value){
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BST{
+    constructor(){
+        this.root = null;
+    }
+    isEmpty(){
+        return this.root === null;
+    }
+    insert(value){
+        const newNode = new Node(value); // Corrected: Pass value to Node constructor
+        if(this.isEmpty()){
+            this.root = newNode;
+        }
+        else{
+            this.insertNode(this.root, newNode);
+        }
+    }
+    insertNode(root, newNode){
+        if(newNode.value < root.value){
+            if(root.left === null){
+                root.left = newNode;
+            }
+            else{
+                this.insertNode(root.left, newNode);
+            }
+        }else{
+            if(root.right === null){
+                root.right = newNode;
+            } else {
+                this.insertNode(root.right, newNode);
+            }
+        }
+    }
+    search(root, value){
+        if(!root){
+            return false;
+        } else {
+            if(root.value === value){
+                return true;
+            } else if(value < root.value){
+                return this.search(root.left, value);
+            } else{
+                return this.search(root.right, value);
+            }
+        }
+    }
+
+    isBST(node, min = null, max = null) {
+        if (node === null) {
+            return true; // An empty tree is a BST
+        }
+
+        if (min !== null && node.value <= min) {
+            return false; // The node's value is not greater than the minimum
+        }
+
+        if (max !== null && node.value >= max) {
+            return false; // The node's value is not less than the maximum
+        }
+
+        // Check the left and right subtrees with updated min and max values
+        return this.isBST(node.left, min, node.value) && this.isBST(node.right, node.value, max);
+    }
+}
+
+const bst = new BST();
+console.log('Empty?: ', bst.isEmpty());
+
+bst.insert(10);
+bst.insert(20);
+bst.insert(30);
+console.log(bst.search(bst.root, 20));
+
+// Validate if the tree is a BST
+console.log('Is BST?: ', bst.isBST(bst.root)); // Pass the root node to isBST method
+
+```
