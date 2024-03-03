@@ -443,3 +443,181 @@ console.log(bst.search(bst.root, 20));
 console.log('Is BST?: ', bst.isBST(bst.root)); // Pass the root node to isBST method
 
 ```
+
+## Height of the tree
+
+```javascript
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BST {
+    constructor() {
+        this.root = null;
+    }
+
+    isEmpty() {
+        return this.root === null;
+    }
+
+    insert(value) {
+        const newNode = new Node(value);
+        if (this.isEmpty()) {
+            this.root = newNode;
+        } else {
+            this.insertNode(this.root, newNode);
+        }
+    }
+
+    insertNode(root, newNode) {
+        if (newNode.value < root.value) {
+            if (root.left === null) {
+                root.left = newNode;
+            } else {
+                this.insertNode(root.left, newNode);
+            }
+        } else {
+            if (root.right === null) {
+                root.right = newNode;
+            } else {
+                this.insertNode(root.right, newNode);
+            }
+        }
+    }
+
+    getHeight(node = this.root) {
+        if (node === null) {
+            return -1; // Height of an empty tree is -1
+        }
+
+        // Recursively compute the height of the left and right subtrees
+        const leftHeight = this.getHeight(node.left);
+        const rightHeight = this.getHeight(node.right);
+
+        // Return the maximum height among the left and right subtrees, plus 1 for the current node
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+}
+
+// Example usage:
+const bst = new BST();
+bst.insert(10);
+bst.insert(5);
+bst.insert(15);
+bst.insert(3);
+bst.insert(7);
+
+console.log('Height of the BST:', bst.getHeight());
+```
+### Height of  node:-
+```javascript
+  getNodeHeight(target, node = this.root) {
+        if (node === null) {
+            return -1; // Height of a non-existent node is -1
+        }
+
+        if (node.value === target) {
+            return this.getHeight(node); // Return height of the current node
+        }
+
+        // Recursively search in the left and right subtrees
+        const leftHeight = this.getNodeHeight(target, node.left);
+        const rightHeight = this.getNodeHeight(target, node.right);
+
+        // Return the maximum height among the left and right subtrees
+        return Math.max(leftHeight, rightHeight);
+    }
+
+    getHeight(node) {
+        if (node === null) {
+            return -1; // Height of an empty tree is -1
+        }
+
+        // Recursively compute the height of the left and right subtrees
+        const leftHeight = this.getHeight(node.left);
+        const rightHeight = this.getHeight(node.right);
+
+        // Return the maximum height among the left and right subtrees, plus 1 for the current node
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+}
+```
+## Depth of the node in bst
+```javascript
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BST {
+    constructor() {
+        this.root = null;
+    }
+
+    isEmpty() {
+        return this.root === null;
+    }
+
+    insert(value) {
+        const newNode = new Node(value);
+        if (this.isEmpty()) {
+            this.root = newNode;
+        } else {
+            this.insertNode(this.root, newNode);
+        }
+    }
+
+    insertNode(root, newNode) {
+        if (newNode.value < root.value) {
+            if (root.left === null) {
+                root.left = newNode;
+            } else {
+                this.insertNode(root.left, newNode);
+            }
+        } else {
+            if (root.right === null) {
+                root.right = newNode;
+            } else {
+                this.insertNode(root.right, newNode);
+            }
+        }
+    }
+
+    getNodeDepth(target, node = this.root, depth = 0) {
+        if (node === null) {
+            return -1; // Target node not found, return -1
+        }
+
+        if (node.value === target) {
+            return depth; // Found the target node, return the current depth
+        }
+
+        // Recursively search in the left and right subtrees
+        const leftDepth = this.getNodeDepth(target, node.left, depth + 1);
+        const rightDepth = this.getNodeDepth(target, node.right, depth + 1);
+
+        // Return the maximum depth among the left and right subtrees
+        return Math.max(leftDepth, rightDepth);
+    }
+}
+
+// Example usage:
+const bst = new BST();
+bst.insert(10);
+bst.insert(5);
+bst.insert(15);
+bst.insert(3);
+bst.insert(7);
+
+const targetNodeValue = 7;
+console.log(`Depth of node with value ${targetNodeValue}:`, bst.getNodeDepth(targetNodeValue));
+
+```
+
