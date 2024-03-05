@@ -220,3 +220,72 @@ minHeap.removeMin();
 console.log("Min heap After removal:", minHeap.heap);
 
 ```
+
+#      MAXHEAP
+**Insert Maxheap**
+```javascript
+class MaxHeap {
+    constructor() {
+        this.heap = [];
+        this.size = 0;
+    }
+
+    // Get the parent index of a node
+    getParentIndex(index) {
+        return Math.floor((index - 1) / 2);
+    }
+
+    // Get the left child index of a node
+    getLeftChildIndex(index) {
+        return index * 2 + 1;
+    }
+
+    // Get the right child index of a node
+    getRightChildIndex(index) {
+        return index * 2 + 2;
+    }
+
+    hasParent(index) {
+        return this.getParentIndex(index) >= 0;
+    }
+
+    hasLeftChild(index) {
+        return this.getLeftChildIndex(index) < this.size;
+    }
+
+    hasRightChild(index) {
+        return this.getRightChildIndex(index) < this.size;
+    }
+
+    swap(index1, index2) {
+        let tmp = this.heap[index1];
+        this.heap[index1] = this.heap[index2];
+        this.heap[index2] = tmp;
+    }
+
+    insert(data) {
+        this.heap[this.size] = data; // insert at last available position in heap
+        this.size += 1; // increment the size
+        this.heapifyUp(); // to check if data is in the right position
+    }
+
+    heapifyUp() {
+        let index = this.size - 1; // starting position
+        while (this.hasParent(index) && this.heap[this.getParentIndex(index)] < this.heap[index]) {
+            this.swap(this.getParentIndex(index), index);
+            index = this.getParentIndex(index);
+        }
+    }
+}
+
+// Example usage:
+const maxHeap = new MaxHeap();
+maxHeap.insert(10);
+maxHeap.insert(5);
+maxHeap.insert(15);
+maxHeap.insert(3);
+maxHeap.insert(7);
+
+console.log("Max heap:", maxHeap.heap); // Output the heap array
+
+```
