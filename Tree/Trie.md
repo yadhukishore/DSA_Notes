@@ -89,3 +89,82 @@ Suppose we want to insert the word "apple" into the Trie.
 - After processing all characters, we mark the `isEndOfWord` flag of the last node (i.e., the node corresponding to 'e') as `true`, indicating that "apple" has been fully inserted into the Trie.
 
 This way, the Trie structure is built up as we insert words, allowing efficient word retrieval, prefix search, and other operations.
+
+
+
+
+#  find the longest common prefix string amongst an array of strings
+
+
+1. **Initialization**: It starts by initializing a pointer `node` to the root of the Trie and an empty string `prefix` to store the longest common prefix found so far.
+
+2. **Traversing the Trie**:
+   - It iterates through the Trie as long as two conditions are met:
+     - The number of children of the current node is 1 (meaning there is only one possible continuation).
+     - The current node is not the end of a word (meaning it's not a complete word).
+   - If both conditions are met, it means there is a common character among all words so far. It appends that character to the `prefix` and moves the `node` pointer to its child corresponding to that character.
+
+3. **Returning the Prefix**: Once the loop terminates (either because the conditions are no longer met or the end of the Trie is reached), it returns the `prefix`, which represents the longest common prefix among all words in the Trie.
+
+This method leverages the Trie's structure to efficiently find the longest common prefix among a set of strings by traversing only the common prefix characters. It runs in linear time complexity relative to the length of the longest common prefix.
+
+Let's see how it works with the provided examples:
+- For `strs1 = ["flower","flow","floight"]`, the longest common prefix is "fl".
+- For `strs2 = ["dog","racecar","car"]`, there is no common prefix, so the result is an empty string ("").
+```javascript
+
+class TrieNode {
+ constructor() {
+    this.children = new Map();
+    this.isEndOfWord = false;
+ }
+}
+
+class Trie {
+ constructor() {
+    this.root = new TrieNode();
+ }
+  
+ insert(word) {
+    let node = this.root;
+    for (let i = 0; i < word.length; i++) {
+      const char = word[i];
+      if (!node.children.has(char)) {
+        node.children.set(char, new TrieNode());
+      }
+      node = node.children.get(char);
+    }
+    node.isEndOfWord = true;
+ }
+ longestCommonPrefix(){
+     let node = this.root;
+     let prefix = "";
+     while(node.children.size === 1 && !node.isEndOfWord){
+         const char = node.children.keys().next().value;
+         prefix += char;
+         node = node.children.get(char);
+     }
+     return prefix;
+ }
+}
+function longestCommonPrefix(strs){
+    if(strs.length === 0 || strs === null) return "";
+    const trie = new Trie();
+    for(let val of strs){
+        trie.insert(val);
+    }
+    return trie.longestCommonPrefix();
+}
+// Example usage
+const strs1 = ["flower","flow","floight"];
+console.log(longestCommonPrefix(strs1)); // Output: "fl"
+
+const strs2 = ["dog","racecar","car"];
+console.log(longestCommonPrefix(strs2)); // Output: ""
+
+```
+In the line `const char = node.children.keys().next().value;`, `node.children.keys()` retrieves all the keys (characters) of the children nodes of the current node in the Trie. This returns an iterator object representing the keys.
+
+Then, `next()` is called on this iterator object, which returns an object with two properties: `done` (a boolean indicating if the iterator is done) and `value` (the next value in the iteration). In this case, `value` holds the next character in the iteration.
+
+So, `const char` captures the value of the next character (key) in the Trie's children nodes, which represents the next character in the longest common prefix.
