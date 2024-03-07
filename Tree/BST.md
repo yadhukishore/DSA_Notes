@@ -746,3 +746,73 @@ console.log("Number of nodes:", bst.countNodes()); // Output: 5
 ```
   return node.value+this.countNodes(node.left)+this.countNodes(node.right);
 ```
+# ----Balancing Factor-----
+
+In a binary search tree (BST), the balancing factor is a measure of how balanced the tree is. It's typically defined as the difference in height between the left and right subtrees of a node.
+
+The balancing factor for a node can be calculated as follows:
+
+Balancing Factor (BF) = Height of the left subtree - Height of the right subtree
+
+A balanced tree has a balancing factor of 0, meaning that the heights of its left and right subtrees are equal (or differ by at most 1). If the balancing factor of a node is negative, it indicates that the right subtree is taller, and if it's positive, it indicates that the left subtree is taller.
+
+Here's an implementation of a function to calculate the balancing factor of a node in a BST:
+
+```javascript
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BST {
+    constructor() {
+        this.root = null;
+    }
+
+    // Other methods like insert, search, etc. go here...
+
+    // Function to calculate the height of a node
+    height(node) {
+        if (node === null) {
+            return 0; // Base case: if the node is null, return 0
+        }
+        // Recursively calculate the height of the left and right subtrees
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
+        // Height of the node is the maximum height of its subtrees plus 1
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    // Function to calculate the balancing factor of a node
+    balancingFactor(node) {
+        if (node === null) {
+            return 0; // Base case: if the node is null, balancing factor is 0
+        }
+        // Calculate the height of the left and right subtrees
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
+        // Balancing factor is the difference in heights of the left and right subtrees
+        return leftHeight - rightHeight;
+    }
+}
+
+// Example usage:
+const bst = new BST();
+// Insert nodes into the BST
+bst.insert(10);
+bst.insert(5);
+bst.insert(15);
+bst.insert(3);
+bst.insert(7);
+// Calculate the balancing factor of the root node
+console.log("Balancing factor of the root node:", bst.balancingFactor(bst.root));
+```
+
+In this implementation:
+
+- The `height()` method calculates the height of a node in the tree recursively.
+- The `balancingFactor()` method calculates the balancing factor of a node by subtracting the height of the right subtree from the height of the left subtree.
+- You can call the `balancingFactor()` method for any node in the BST to determine its balancing factor.
