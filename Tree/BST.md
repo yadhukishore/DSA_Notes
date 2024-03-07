@@ -700,3 +700,49 @@ console.log("Minimum element:", bst.findMin()); // Output: 3
 console.log("Maximum element:", bst.findMax()); // Output: 15
 
 ```
+
+# Count the Number of Nodes?
+
+```javascript
+
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BST {
+    constructor() {
+        this.root = null;
+    }
+
+    // Other methods like insert, search, etc. go here...
+
+    // Function to count the number of nodes in the BST
+    countNodes(node = this.root) {
+        if (node === null) {
+            return 0; // Base case: if the node is null, return 0
+        }
+        // Recursively count nodes in the left and right subtrees
+        return 1 + this.countNodes(node.left) + this.countNodes(node.right);
+    }
+}
+
+// Example usage:
+const bst = new BST();
+bst.insert(10);
+bst.insert(5);
+bst.insert(15);
+bst.insert(3);
+bst.insert(7);
+
+console.log("Number of nodes:", bst.countNodes()); // Output: 5
+
+```
+**The total count is the sum of 1 (for the current node) and the counts of nodes in the left and right subtrees.**
+### if i need tofind sum of all node values return `Change 1 to node value`
+```
+  return node.value+this.countNodes(node.left)+this.countNodes(node.right);
+```
