@@ -621,3 +621,82 @@ console.log(`Depth of node with value ${targetNodeValue}:`, bst.getNodeDepth(tar
 
 ```
 
+# Find the Minimum and Maximum Elements?
+
+```javascript
+
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BST {
+    constructor() {
+        this.root = null;
+    }
+
+    // Insert a new node into the BST
+    insert(value) {
+        if (!this.root) {
+            this.root = new Node(value);
+            return;
+        }
+
+        let currentNode = this.root;
+        while (true) {
+            if (value < currentNode.value) {
+                if (!currentNode.left) {
+                    currentNode.left = new Node(value);
+                    return;
+                }
+                currentNode = currentNode.left;
+            } else {
+                if (!currentNode.right) {
+                    currentNode.right = new Node(value);
+                    return;
+                }
+                currentNode = currentNode.right;
+            }
+        }
+    }
+
+    // Find the minimum value in the BST
+    findMin() {
+        if (!this.root) {
+            return null;
+        }
+        let currentNode = this.root;
+        while (currentNode.left) {
+            currentNode = currentNode.left;
+        }
+        return currentNode.value;
+    }
+
+    // Find the maximum value in the BST
+    findMax() {
+        if (!this.root) {
+            return null;
+        }
+        let currentNode = this.root;
+        while (currentNode.right) {
+            currentNode = currentNode.right;
+        }
+        return currentNode.value;
+    }
+}
+
+// Example usage:
+const bst = new BST();
+bst.insert(10);
+bst.insert(5);
+bst.insert(15);
+bst.insert(3);
+bst.insert(7);
+
+console.log("Minimum element:", bst.findMin()); // Output: 3
+console.log("Maximum element:", bst.findMax()); // Output: 15
+
+```
