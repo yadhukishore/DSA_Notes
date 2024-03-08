@@ -168,3 +168,51 @@ In the line `const char = node.children.keys().next().value;`, `node.children.ke
 Then, `next()` is called on this iterator object, which returns an object with two properties: `done` (a boolean indicating if the iterator is done) and `value` (the next value in the iteration). In this case, `value` holds the next character in the iteration.
 
 So, `const char` captures the value of the next character (key) in the Trie's children nodes, which represents the next character in the longest common prefix.
+
+# insert and Display
+```javascript
+class TrieNode {
+    constructor() {
+        this.child = new Map();
+        this.isEnd = false;
+    }
+}
+
+class Trie {
+    constructor() {
+        this.root = new TrieNode();
+    }
+
+    insert(word) {
+        let node = this.root;
+        for (let val of word) { // Note: 'word' should be singular here, not 'words'
+            if (!node.child.has(val)) {
+                node.child.set(val, new TrieNode());
+            }
+            node = node.child.get(val);
+        }
+        node.isEnd = true;
+    }
+
+    display(node = this.root, prefix = '') {
+        if (node.isEnd) {
+            console.log(prefix); // Print the word if the current node is the end of a word
+        }
+
+        for (const [char, childNode] of node.child.entries()) {
+            this.display(childNode, prefix + char); // Recursively call display on the child node, appending the current character to the prefix
+        }
+    }
+}
+
+// Example usage:
+const trie = new Trie();
+trie.insert("hello");
+trie.insert("world");
+trie.insert("hell");
+
+console.log("Contents of the Trie:");
+trie.display();
+
+
+```
