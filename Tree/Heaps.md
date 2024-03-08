@@ -387,3 +387,13 @@ console.log("Removing max value:", maxHeap.removeMax()); // Output the removed m
 console.log("Max heap after removal:", maxHeap.heap); // Output the heap array after removal
 
 ```
+
+## Explanation of heapy up and down
+
+In the context of a heap data structure, "heapify up" and "heapify down" refer to two different processes used to maintain the heap property during insertions or deletions.
+
+- **Heapify Up**: This process is used when a new element is added to the heap and needs to be placed in its correct position to maintain the heap property. Starting from the newly added element, it compares the element with its parent. If the element is smaller (in a min-heap) or larger (in a max-heap) than its parent, the element is swapped with its parent. This process continues up the heap until the element is in its correct position or the root of the heap is reached. The code snippet for heapify up is provided in Source 1, where it iterates through each element, comparing it with its parent and swapping them if necessary until the heap property is restored.
+
+- **Heapify Down**: This process is used to restore the heap property after an element has been removed from the heap or after a new element has been added and placed at the root. Starting from the root, it compares the root with its children. If the root is smaller (in a min-heap) or larger (in a max-heap) than either of its children, the root is swapped with the larger (in a min-heap) or smaller (in a max-heap) child. This process continues down the heap until the element is in its correct position or a leaf node is reached. The code snippet for heapify down is also provided in Source 1, where it iterates from the root downwards, ensuring that the heap property is maintained at each step.
+
+Heapify up is typically used when adding a new element to the heap, ensuring that the new element is placed in its correct position without disrupting the heap property. Heapify down is used after removing the root element or after adding a new element at the root, ensuring that the heap property is maintained throughout the heap [1][2].
