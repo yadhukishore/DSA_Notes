@@ -408,3 +408,43 @@ q.push(40);// Adding new element, oldest element (10) should be removed
 
 q.display();
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Here's a summary table of the time and space complexities of common stack operations:
+
+| Operation | Time Complexity | Space Complexity |
+|-----------|------------------|------------------|
+| Push      | \(O(1)\)         | \(O(1)\)         |
+| Pop       | \(O(1)\)         | \(O(1)\)         |
+| Peek      | \(O(1)\)         | \(O(1)\)         |
+| isEmpty   | \(O(1)\)         | \(O(1)\)         |
+| Size      | \(O(1)\)         | \(O(1)\)         |
+
+The space complexity for the stack itself is \(O(n)\) where \(n\) is the number of elements in the stack. This ensures efficient and predictable performance, making stacks a useful data structure for various applications such as expression evaluation, backtracking algorithms, and maintaining function call history in recursion.
