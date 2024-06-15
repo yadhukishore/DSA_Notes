@@ -157,3 +157,51 @@ list.reverse();
 list.display();
 
 ```
+### to reverse particular postion or substring in a linkedlist
+
+https://leetcode.com/problems/reverse-linked-list-ii/
+
+```javascript
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} left
+ * @param {number} right
+ * @return {ListNode}
+ */
+var reverseBetween = function(head, left, right) {
+    const dummy = new ListNode(0);
+    dummy.next = head;
+    let leftPrev = dummy;
+    let curr = head;
+
+    // Move leftPrev and curr to the (left - 1)th node
+    for (let i = 0; i < left - 1; i++) {
+        leftPrev = leftPrev.next;
+        curr = curr.next;
+    }
+
+    let prev = null;
+    const subListHead = curr;
+
+    // Reverse the sublist between left and right
+    for (let i = 0; i < right - left + 1; i++) {
+        const nextNode = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = nextNode;
+    }
+
+    // Connect the reversed sublist to the main list
+    leftPrev.next.next = curr;
+    leftPrev.next = prev;
+
+    return dummy.next;
+};
+```
