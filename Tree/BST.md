@@ -816,3 +816,164 @@ In this implementation:
 - The `height()` method calculates the height of a node in the tree recursively.
 - The `balancingFactor()` method calculates the balancing factor of a node by subtracting the height of the right subtree from the height of the left subtree.
 - You can call the `balancingFactor()` method for any node in the BST to determine its balancing factor.
+
+
+
+# Recursvise and itreative way of tree traversals:-
+Sure, let's go over both the recursive and iterative methods for in-order, pre-order, and post-order tree traversal. This will help you answer interview questions effectively.
+
+### Recursive Traversal Methods
+
+#### In-order Traversal (Left, Root, Right)
+```javascript
+inorderTraversal(node) {
+    if (node !== null) {
+        this.inorderTraversal(node.left);
+        console.log(node.value);
+        this.inorderTraversal(node.right);
+    }
+}
+```
+
+#### Pre-order Traversal (Root, Left, Right)
+```javascript
+preorderTraversal(node) {
+    if (node !== null) {
+        console.log(node.value);
+        this.preorderTraversal(node.left);
+        this.preorderTraversal(node.right);
+    }
+}
+```
+
+#### Post-order Traversal (Left, Right, Root)
+```javascript
+postorderTraversal(node) {
+    if (node !== null) {
+        this.postorderTraversal(node.left);
+        this.postorderTraversal(node.right);
+        console.log(node.value);
+    }
+}
+```
+
+### Iterative Traversal Methods
+
+#### In-order Traversal (Left, Root, Right)
+1. **Initialize Stack and Current Node**: Create an empty stack and set `current` to the root node.
+2. **Traverse to the Leftmost Node**: Push the `current` node onto the stack and move to its left child (`current = current.left`) until `current` is null.
+3. **Visit the Node**: Pop a node from the stack, print its value, and move to its right child (`current = current.right`).
+4. **Repeat**: Continue until both `current` is null and the stack is empty.
+
+```javascript
+inorderTraversalIterative(node) {
+    const stack = [];
+    let current = node;
+
+    while (current !== null || stack.length > 0) {
+        while (current !== null) {
+            stack.push(current);
+            current = current.left;
+        }
+        current = stack.pop();
+        console.log(current.value);
+        current = current.right;
+    }
+}
+```
+
+#### Pre-order Traversal (Root, Left, Right)
+1. **Initialize Stack**: Create an empty stack and push the root node onto the stack.
+2. **Visit the Node**: Pop a node from the stack, print its value, and push its right and left children onto the stack (if they exist).
+3. **Repeat**: Continue until the stack is empty.
+
+```javascript
+preorderTraversalIterative(node) {
+    if (node === null) return;
+
+    const stack = [];
+    stack.push(node);
+
+    while (stack.length > 0) {
+        let current = stack.pop();
+        console.log(current.value);
+
+        if (current.right !== null) {
+            stack.push(current.right);
+        }
+        if (current.left !== null) {
+            stack.push(current.left);
+        }
+    }
+}
+```
+
+#### Post-order Traversal (Left, Right, Root)
+Using two stacks:
+1. **Initialize Two Stacks**: Create two empty stacks and push the root node onto the first stack.
+2. **Process Nodes**: Pop a node from the first stack, push it onto the second stack, and push its left and right children onto the first stack (if they exist).
+3. **Print Nodes**: Pop nodes from the second stack and print their values.
+
+```javascript
+postorderTraversalIterative(node) {
+    if (node === null) return;
+
+    const stack1 = [];
+    const stack2 = [];
+    stack1.push(node);
+
+    while (stack1.length > 0) {
+        let current = stack1.pop();
+        stack2.push(current);
+
+        if (current.left !== null) {
+            stack1.push(current.left);
+        }
+        if (current.right !== null) {
+            stack1.push(current.right);
+        }
+    }
+
+    while (stack2.length > 0) {
+        let current = stack2.pop();
+        console.log(current.value);
+    }
+}
+```
+
+Using one stack:
+1. **Initialize Stack**: Create an empty stack and set `lastVisited` to null and `current` to the root node.
+2. **Traverse to the Leftmost Node**: Push the `current` node onto the stack and move to its left child (`current = current.left`).
+3. **Process Nodes**: Peek the node at the top of the stack. If the peeked node has a right child that was not the last visited node, move to its right child (`current = peekNode.right`). Otherwise, pop the node from the stack, print its value, and set it as `lastVisited`.
+4. **Repeat**: Continue until both `current` is null and the stack is empty.
+
+```javascript
+postorderTraversalIterative(node) {
+    const stack = [];
+    let lastVisited = null;
+    let current = node;
+
+    while (current !== null || stack.length > 0) {
+        while (current !== null) {
+            stack.push(current);
+            current = current.left;
+        }
+        let peekNode = stack[stack.length - 1];
+        if (peekNode.right !== null && lastVisited !== peekNode.right) {
+            current = peekNode.right;
+        } else {
+            console.log(peekNode.value);
+            lastVisited = stack.pop();
+        }
+    }
+}
+```
+
+### Summary
+
+For interviews, it's good to be familiar with both recursive and iterative approaches:
+
+- **Recursive** methods are often simpler to write and understand, as they directly follow the definition of the tree traversal.
+- **Iterative** methods require understanding how to use a stack to simulate the call stack used in recursion, which can be a bit more complex but avoids the potential stack overflow issues with deep recursion.
+
+Make sure to practice both approaches to be prepared for any variation of the question in an interview setting.
