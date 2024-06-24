@@ -224,6 +224,9 @@ const stack = [];
 console.log(validParantesis("(())"))
 ```
 
+`(c !== stack.pop())`: This checks if the current closing bracket para matches the top element of the stack. If they don't match, it means we have a closing bracket that doesn't correspond to the most recent opening bracket. //stack top lem , c lem value equal allel `false`
+
+
 This algorithm has a time complexity of O(n), where n is the length of the input string `s`. It efficiently validates whether the string contains valid pairs of parentheses, square brackets, and curly braces.
 
 
