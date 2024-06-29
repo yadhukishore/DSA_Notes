@@ -205,3 +205,35 @@ var reverseBetween = function(head, left, right) {
     return dummy.next;
 };
 ```
+# Find the second Largest Ele from LinkedList:-
+```javascript
+//find the second largest element from a linkedlist
+class Node{
+  constructor (data){
+    this.data = data;
+    this.next = null;
+  }
+}
+const findSecondLargest =(head)=>{
+    let largest = head.data;
+    let secondLargest = -Infinity;
+    let current = head.next;
+    while(current !== null){
+      if(current.data > largest){
+        secondLargest = largest;
+        largest = current.data;
+      }else if(current.data > secondLargest && current.data !== largest){
+        secondLargest = current.data;
+      }
+      current = current.next;
+    }
+    return secondLargest;
+
+  }
+  const head = new Node(1);
+  head.next = new Node(2);
+  head.next.next = new Node(3);
+  head.next.next.next = new Node(4);
+  head.next.next.next.next = new Node(5);
+  console.log(findSecondLargest(head));
+```
